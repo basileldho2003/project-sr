@@ -1,0 +1,13 @@
+[Unit]
+Description=Install default Homebrew formulas
+After=network-online.target brew-setup.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=BASH_ENV=/etc/profile
+ExecStart=/usr/bin/bash -lc 'eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; \
+  brew bundle --no-lock --file=/etc/ublue/Brewfile'
+
+[Install]
+WantedBy=multi-user.target

@@ -10,11 +10,19 @@ set -ouex pipefail
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-dnf5 install -y tmux hello
+# dnf5 install -y tmux
+dnf5 install -y \
+  @cinnamon-desktop \
+  lightdm slick-greeter-cinnamon tmux hello
 
 # Use a COPR Example:
 #
-# dnf5 -y copr enable ublue-os/staging
+dnf5 -y copr enable ublue-os/staging
+dnf5 config-manager --set-disabled "copr:copr.fedorainfracloud.org:ublue-os:staging"
+
+dnf5 copr enable ublue-os/packages
+dnf5 config-manager --set-disabled "copr:copr.fedorainfracloud.org:ublue-os:packages"
+dnf5 -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install ublue-brew
 # dnf5 -y install package
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
@@ -22,3 +30,4 @@ dnf5 install -y tmux hello
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
+systemctl enable brew-bootstrap.service
