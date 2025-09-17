@@ -23,6 +23,8 @@ dnf5 config-manager --set-disabled "copr:copr.fedorainfracloud.org:ublue-os:stag
 dnf5 copr enable ublue-os/packages
 dnf5 config-manager --set-disabled "copr:copr.fedorainfracloud.org:ublue-os:packages"
 dnf5 -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install ublue-brew
+
+dnf5 clean all
 # dnf5 -y install package
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
@@ -31,3 +33,4 @@ dnf5 -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install ub
 
 systemctl enable podman.socket
 systemctl enable brew-bootstrap.service
+systemctl enable lightdm.service

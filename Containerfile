@@ -18,6 +18,9 @@ FROM ghcr.io/ublue-os/base-main:latest
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
+COPY branding/os-release /usr/lib/os-release
+COPY branding/os-release /etc/os-release
+
 COPY Brewfile /etc/ublue/Brewfile
 COPY systemd/brew-bootstrap.service /usr/lib/systemd/system/brew-bootstrap.service
 
