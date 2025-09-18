@@ -15,6 +15,8 @@ dnf5 install -y \
   @cinnamon-desktop \
   lightdm slick-greeter-cinnamon tmux hello
 
+systemctl enable lightdm.service
+
 # Use a COPR Example:
 #
 # dnf5 -y copr enable ublue-os/staging
@@ -25,10 +27,13 @@ dnf5 install -y \
 dnf5 -y copr enable ublue-os/packages
 dnf5 -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install ublue-brew
 dnf5 -y copr disable ublue-os/packages
+
+rm -rf /var/run
+ln -sfn ../run /var/run
+
 dnf5 clean all
 
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
 systemctl enable brew-bootstrap.service
-systemctl enable lightdm.service
