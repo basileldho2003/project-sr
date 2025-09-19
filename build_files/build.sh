@@ -32,6 +32,8 @@ dnf5 -y copr enable ublue-os/akmods
 
 dnf5 -y --enablerepo=copr:copr.fedorainfracloud.org:ublue-os:packages install ublue-brew
 
+chown -R linuxbrew:linuxbrew /var/home/linuxbrew
+
 rm -rf /var/run
 ln -sfn ../run /var/run
 find /var -xdev -type f -print -delete
