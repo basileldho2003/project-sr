@@ -30,7 +30,7 @@ dnf5 -y copr enable ublue-os/akmods
 
 #dnf5 -y copr disable ublue-os/akmods
 
-dnf5 -y install ublue-brew
+dnf5 -y --enablerepo=copr:copr.fedorainfracloud.org:ublue-os:packages install ublue-brew
 
 rm -rf /var/run
 ln -sfn ../run /var/run
