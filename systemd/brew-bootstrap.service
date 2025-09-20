@@ -7,9 +7,9 @@ ConditionPathExists=!/var/lib/ublue/brew-bootstrap.stamp
 
 [Service]
 Type=oneshot
-# Run as the linuxbrew user created by ublue-brew
-User=linuxbrew
-Group=linuxbrew
+# Check if root works
+User=root
+Group=root
 # Brew needs a real HOME and a readable Brewfile
 Environment=HOME=/var/home/linuxbrew
 Environment=NONINTERACTIVE=1
