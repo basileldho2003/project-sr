@@ -41,5 +41,4 @@ dnf5 clean all
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
-systemctl enable brew-bootstrap.service
 systemctl enable lightdm.service

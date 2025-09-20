@@ -21,9 +21,6 @@ FROM ghcr.io/ublue-os/base-main:latest
 COPY branding/os-release /usr/lib/os-release
 COPY branding/os-release /etc/os-release
 
-COPY Brewfile /etc/ublue/Brewfile
-COPY systemd/brew-bootstrap.service /usr/lib/systemd/system/brew-bootstrap.service
-
 COPY branding/tmpfiles.d/saptarishi.conf /usr/lib/tmpfiles.d/saptarishi.conf
 COPY branding/sysusers.d/saptarishi.conf  /usr/lib/sysusers.d/saptarishi.conf
 
