@@ -18,6 +18,9 @@ FROM ghcr.io/ublue-os/base-main:latest
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
+COPY branding/os-release /usr/lib/os-release
+RUN ln -sf /usr/lib/os-release /etc/os-release
+
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \

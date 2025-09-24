@@ -22,3 +22,6 @@ dnf5 install -y hello
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
+
+dnf5 clean all
+rm -rf /var/cache/dnf /var/lib/dnf
