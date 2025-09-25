@@ -113,7 +113,7 @@ jobs:
       - name: Test Homebrew installation
         run: |
           podman run --rm localhost/${{ env.IMAGE_NAME }}:${{ env.DEFAULT_TAG }} \
-            bash -lc 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew update && brew doctor'
+            bash -lc 'eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew update && brew doctor'
 
       # Rechunk is a script that we use on Universal Blue to make sure there isnt a single huge layer when your image gets published.
       # This does not make your image faster to download, just provides better resumability and fixes a few errors.
