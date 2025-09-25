@@ -35,10 +35,3 @@ systemctl enable podman.socket
 
 dnf5 clean all
 rm -rf /var/cache/dnf /var/lib/dnf
-
-# Add brew to PATH for the build
-eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-# Validate
-brew update
-brew doctor || { echo "brew doctor failed"; exit 1; }
