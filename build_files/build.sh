@@ -36,9 +36,6 @@ systemctl enable podman.socket
 dnf5 clean all
 rm -rf /var/cache/dnf /var/lib/dnf
 
-# Force run the bootstrap now
-/usr/libexec/brew-bootstrap.sh
-
 # Add brew to PATH for the build
 eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
