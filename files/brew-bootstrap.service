@@ -1,0 +1,11 @@
+[Unit]
+Description=Bootstrap Homebrew with Brewfile on first login
+ConditionPathExists=%h/.Brewfile
+ConditionPathExists=!%h/.brew-bootstrap-done
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -lc 'brew bundle --file=%h/.Brewfile && touch %h/.brew-bootstrap-done'
+
+[Install]
+WantedBy=default.target

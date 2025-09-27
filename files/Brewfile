@@ -1,0 +1,8 @@
+brew "fastfetch"
+brew "eza"
+brew "tlrc"
+brew "duf"
+brew "xh"
+brew "fortune"
+brew "cowsay"
+brew "lolcat"

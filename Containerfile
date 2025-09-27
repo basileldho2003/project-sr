@@ -19,6 +19,8 @@ FROM ghcr.io/ublue-os/base-main:latest
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 COPY branding/os-release /usr/lib/os-release
+COPY files/Brewfile /etc/skel/.Brewfile
+COPY files/brew-bootstrap.service /usr/lib/systemd/user/brew-bootstrap.service
 RUN ln -sf /usr/lib/os-release /etc/os-release
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \

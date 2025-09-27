@@ -25,6 +25,7 @@ dnf5 -y install ublue-brew uupd
 
 #### Example for enabling a System Unit File
 
+systemctl --global enable brew-bootstrap.service
 systemctl disable rpm-ostreed-automatic.timer
 systemctl disable flatpak-system-update.timer
 systemctl --global disable flatpak-user-update.timer
