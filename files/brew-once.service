@@ -5,13 +5,18 @@ ConditionPathExists=/etc/brew/Brewfile
 [Service]
 Type=oneshot
 Environment=NONINTERACTIVE=1
+ExecStartPre=/usr/bin/echo ">>> Installing Homebrew packages from /etc/brew/Brewfile, this may take a few minutes..." > /dev/tty
 ExecStart=/usr/bin/bash -lc '\
+  set -euo pipefail; \
   BREW="/home/linuxbrew/.linuxbrew/bin/brew"; \
   [ -x "$BREW" ] || BREW="/var/home/linuxbrew/.linuxbrew/bin/brew"; \
   if [ ! -x "$BREW" ]; then \
     echo "Error: brew not found" >&2; exit 1; \
   fi; \
-  "$BREW" bundle --file=/etc/brew/Brewfile && rm -f /etc/brew/Brewfile \
+  echo ">>> Installing Homebrew packages from /etc/brew/Brewfile..."; \
+  "$BREW" bundle --file=/etc/brew/Brewfile || true; \
+  echo ">>> Brewfile installation finished. Cleaning up..."; \
+  rm -f /etc/brew/Brewfile \
 '
 
 [Install]
