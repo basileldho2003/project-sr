@@ -1,3 +1,2 @@
-# image-template
-
-> Note: Tis project is in WIP.
+# project-sr
+> Note: This project is in WIP.
