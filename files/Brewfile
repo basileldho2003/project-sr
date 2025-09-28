@@ -1,3 +1,4 @@
+brew "gcc"
 brew "fastfetch"
 brew "eza"
 brew "tlrc"
