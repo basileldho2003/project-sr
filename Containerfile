@@ -19,6 +19,7 @@ FROM ghcr.io/ublue-os/base-main:latest
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 COPY branding/os-release /usr/lib/os-release
+COPY files/systemd-remount-fs.override.conf /etc/systemd/system/systemd-remount-fs.service.d/override.conf
 COPY files/Brewfile /etc/brew/Brewfile
 COPY files/brew-bootstrap.service /usr/lib/systemd/user/brew-bootstrap.service
 COPY files/brew-bootstrap.override.conf /etc/systemd/user/brew-bootstrap.service.d/override.conf
