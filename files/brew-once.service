@@ -1,11 +1,11 @@
 [Unit]
 Description=Run brew bundle once on first login
-ConditionPathExists=/etc/brew/Brewfile
+ConditionPathExists=%h/.Brewfile
 
 [Service]
 Type=oneshot
 Environment=NONINTERACTIVE=1
-ExecStartPre=/usr/bin/echo ">>> Installing Homebrew packages from /etc/brew/Brewfile, this may take a few minutes..." > /dev/tty
+ExecStartPre=/usr/bin/echo ">>> Installing Homebrew packages from ~/.Brewfile, this may take a few minutes..." > /dev/tty
 ExecStart=/usr/bin/bash -lc '\
   set -euo pipefail; \
   BREW="/home/linuxbrew/.linuxbrew/bin/brew"; \
@@ -13,10 +13,10 @@ ExecStart=/usr/bin/bash -lc '\
   if [ ! -x "$BREW" ]; then \
     echo "Error: brew not found" >&2; exit 1; \
   fi; \
-  echo ">>> Installing Homebrew packages from /etc/brew/Brewfile..."; \
-  "$BREW" bundle --file=/etc/brew/Brewfile || true; \
+  echo ">>> Installing Homebrew packages from ~/.Brewfile..."; \
+  "$BREW" bundle --file=%h/.Brewfile || true; \
   echo ">>> Brewfile installation finished. Cleaning up..."; \
-  rm -f /etc/brew/Brewfile \
+  rm -f %h/.Brewfile \
 '
 
 [Install]
