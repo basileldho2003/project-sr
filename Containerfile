@@ -20,6 +20,7 @@ FROM ghcr.io/ublue-os/base-main:latest
 
 COPY branding/os-release /usr/lib/os-release
 COPY files/Brewfile /etc/brew/Brewfile
+COPY files/brew-bootstrap.service /usr/lib/systemd/user/brew-bootstrap.service
 COPY files/brew-bootstrap.override.conf /etc/systemd/user/brew-bootstrap.service.d/override.conf
 RUN ln -sf /usr/lib/os-release /etc/os-release
 
