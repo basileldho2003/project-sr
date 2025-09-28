@@ -1,0 +1,18 @@
+[Unit]
+Description=Run brew bundle once on first login
+ConditionPathExists=/etc/brew/Brewfile
+
+[Service]
+Type=oneshot
+Environment=NONINTERACTIVE=1
+ExecStart=/usr/bin/bash -lc '\
+  BREW="/home/linuxbrew/.linuxbrew/bin/brew"; \
+  [ -x "$BREW" ] || BREW="/var/home/linuxbrew/.linuxbrew/bin/brew"; \
+  if [ ! -x "$BREW" ]; then \
+    echo "Error: brew not found" >&2; exit 1; \
+  fi; \
+  "$BREW" bundle --file=/etc/brew/Brewfile && rm -f /etc/brew/Brewfile \
+'
+
+[Install]
+WantedBy=default.target

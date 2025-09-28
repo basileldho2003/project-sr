@@ -1,9 +1,0 @@
-[Unit]
-Description=Dummy placeholder for brew bootstrap
-
-[Service]
-Type=oneshot
-ExecStart=/bin/true
-
-[Install]
-WantedBy=default.target

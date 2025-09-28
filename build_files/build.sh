@@ -25,14 +25,15 @@ dnf5 -y install ublue-brew uupd
 
 #### Example for enabling a System Unit File
 
-systemctl --global enable brew-bootstrap.service
 systemctl disable rpm-ostreed-automatic.timer
 systemctl disable flatpak-system-update.timer
 systemctl --global disable flatpak-user-update.timer
 systemctl disable brew-update.timer
 systemctl disable brew-upgrade.timer
+systemctl mask systemd-remount-fs.service
 systemctl enable uupd.timer
 systemctl enable podman.socket
+systemctl --global enable brew-once.service
 
 dnf5 clean all
 rm -rf /var/cache/dnf /var/lib/dnf
