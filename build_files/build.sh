@@ -23,6 +23,17 @@ dnf5 -y install ublue-brew uupd
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
 
+# Disable rpm-ostree automatic updates (so uupd manages updates)
+CONF_FILE="/etc/rpm-ostreed.conf"
+
+if grep -q '^AutomaticUpdatePolicy=' "$CONF_FILE"; then
+    # Replace any existing value with "none"
+    sed -i 's/^AutomaticUpdatePolicy=.*/AutomaticUpdatePolicy=none/' "$CONF_FILE"
+else
+    # Add it under [Daemon] section if missing
+    sed -i '/^\[Daemon\]/a AutomaticUpdatePolicy=none' "$CONF_FILE"
+fi
+
 #### Example for enabling a System Unit File
 
 systemctl disable rpm-ostreed-automatic.timer
