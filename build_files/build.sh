@@ -51,3 +51,9 @@ rm -rf /var/cache/dnf /var/lib/dnf
 
 # Run Cinnamon/LightDM setup
 /ctx/cinnamon.sh
+
+# Ensure /var/run is a symlink to /run
+if [ ! -L /var/run ]; then
+    rm -rf /var/run
+    ln -s ../run /var/run
+fi
