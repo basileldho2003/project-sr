@@ -48,3 +48,6 @@ systemctl --global enable brew-once.service
 
 dnf5 clean all
 rm -rf /var/cache/dnf /var/lib/dnf
+
+# Run Cinnamon/LightDM setup
+/ctx/cinnamon.sh

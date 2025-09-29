@@ -21,6 +21,7 @@ FROM ghcr.io/ublue-os/base-main:latest
 COPY branding/os-release /usr/lib/os-release
 COPY files/Brewfile /etc/skel/.Brewfile
 COPY files/brew-once.service /usr/lib/systemd/user/brew-once.service
+COPY files/etc/ /etc/
 RUN ln -sf /usr/lib/os-release /etc/os-release
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
