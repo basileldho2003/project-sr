@@ -7,13 +7,8 @@ dnf5 install -y \
     lightdm \
     slick-greeter
 
-# Disable other display managers (if they exist)
-systemctl disable gdm.service || true
-systemctl disable sddm.service || true
-systemctl disable lxdm.service || true
-
 # Enable LightDM
 systemctl enable lightdm.service
 
-install -d -m 0755 -o root -g root /var/cache/lightdm
-install -d -m 0750 -o lightdm -g lightdm /var/lib/lightdm-data
+install -d -m 0755 /var/cache/lightdm
+install -d -m 0750 /var/lib/lightdm-data
