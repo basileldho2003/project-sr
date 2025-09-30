@@ -14,3 +14,6 @@ systemctl disable lxdm.service || true
 
 # Enable LightDM
 systemctl enable lightdm.service
+
+install -d -m 0755 -o root -g root /var/cache/lightdm
+install -d -m 0750 -o lightdm -g lightdm /var/lib/lightdm-data
