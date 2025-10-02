@@ -1,0 +1,23 @@
+module my-cinnamon 1.0;
+
+require {
+    type xdm_t;
+    type user_home_dir_t;
+    type user_home_t;
+    type tmpfs_t;
+    class dir { create write add_name remove_name getattr read search open };
+    class file { create write read getattr open append map rename unlink };
+    class sock_file { write read create open getattr };
+    class fifo_file { write read create open getattr };
+}
+
+# Example allowances often needed by Cinnamon/Wayland sessions.
+# Start minimally; grow only if AVCs persist and labels are already correct.
+
+# Greeter/session touching user home cache/temp during Wayland init
+allow xdm_t user_home_dir_t:dir { search read open getattr add_name remove_name write create };
+allow xdm_t user_home_t:file { create write read getattr open append };
+
+# Wayland/pipewire/pulse sockets in tmpfs paths
+allow xdm_t tmpfs_t:sock_file { create write read open getattr };
+allow xdm_t tmpfs_t:fifo_file { create write read open getattr };

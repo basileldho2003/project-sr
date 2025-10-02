@@ -20,4 +20,12 @@ done
 # Enable LightDM
 systemctl enable lightdm.service
 
+# If we shipped a local SELinux policy, compile & load it
+if [ -f /usr/share/selinux/packages/my-cinnamon.te ]; then
+  checkmodule -M -m -o /tmp/my-cinnamon.mod /usr/share/selinux/packages/my-cinnamon.te
+  semodule_package -o /tmp/my-cinnamon.pp -m /tmp/my-cinnamon.mod
+  semodule -i /tmp/my-cinnamon.pp || true
+fi
+
+
 echo ">>> Cinnamon + LightDM setup complete"
