@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # ~/.dmrc should be xdm_home_t so LightDM can create/update it
-semanage fcontext -a -t xdm_home_t '/home/[^/]+/.dmrc'
+semanage fcontext -a -t xdm_home_t '/var/home/[^/]+/.dmrc'
 
 # tuned should be writable by tuned-ppd
 semanage fcontext -a -t tuned_rw_etc_t '/etc/tuned(/.*)?'
@@ -14,3 +14,4 @@ semanage fcontext -a -t plymouthd_var_log_t '/var/log/boot.log'
 restorecon -Rv /home || true
 restorecon -Rv /etc/tuned || true
 restorecon -v /var/log/boot.log || true
+echo ">>> SELinux fcontext fixes applied"
