@@ -60,3 +60,4 @@ fi
 
 # Ensure /etc/skel has correct labels (so new users don’t inherit bad contexts)
 restorecon -Rv /etc/skel || true
+/ctx/selinux_fixes.sh || true
