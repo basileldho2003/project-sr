@@ -58,6 +58,10 @@ if [ ! -L /var/run ]; then
     ln -s ../run /var/run
 fi
 
-# Ensure /etc/skel has correct labels (so new users don’t inherit bad contexts)
+# Ensure /etc/skel has correct labels
 restorecon -Rv /etc/skel || true
-/ctx/selinux_fixes.sh || true
+
+# Apply SELinux fixes (safe to re-run even if nothing exists yet)
+if [ -f /ctx/selinux_fixes.sh ]; then
+  /ctx/selinux_fixes.sh || true
+fi
