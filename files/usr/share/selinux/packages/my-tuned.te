@@ -1,0 +1,12 @@
+module my-tuned 1.0;
+
+require {
+    type tuned_ppd_t;
+    type tuned_rw_etc_t;
+    class dir  { search open read getattr add_name remove_name write create };
+    class file { create write read getattr open append rename unlink };
+}
+
+# Let tuned-ppd traverse and manage files under /etc/tuned (tuned_rw_etc_t)
+allow tuned_ppd_t tuned_rw_etc_t:dir  { search open read getattr add_name remove_name write create };
+allow tuned_ppd_t tuned_rw_etc_t:file { create write read getattr open append rename unlink };

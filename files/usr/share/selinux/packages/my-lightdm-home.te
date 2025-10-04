@@ -1,0 +1,15 @@
+module my-lightdm-home 1.0;
+
+require {
+    type xdm_t;
+    type user_home_dir_t;  # parent dir type
+    type xdm_home_t;       # type for .dmrc file
+    class dir  { search read open getattr add_name write create };
+    class file { create write read getattr open append };
+}
+
+# LightDM can add a new entry in the user's home directory (create .dmrc)
+allow xdm_t user_home_dir_t:dir { search read open getattr add_name write create };
+
+# And then work with the .dmrc file itself (which policy will type-transition to xdm_home_t)
+allow xdm_t xdm_home_t:file { create write read getattr open append };
