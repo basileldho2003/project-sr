@@ -5,7 +5,8 @@ echo ">>> Applying SELinux fcontext fixes"
 
 # --- LightDM .dmrc files ---
 # Users can live in /home or /var/home depending on setup (Fedora Silverblue, uBlue, etc.)
-semanage fcontext -a -t xdm_home_t '/home/[^/]+/.dmrc'
+# NOTE: /home is equivalent to /var/home in SELinux policy,
+# so only /var/home/... needs to be added.
 semanage fcontext -a -t xdm_home_t '/var/home/[^/]+/.dmrc'
 
 # --- tuned config directory ---
