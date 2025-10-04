@@ -13,3 +13,6 @@ allow xdm_t user_home_dir_t:dir { search read open getattr add_name write create
 
 # And then work with the .dmrc file itself (which policy will type-transition to xdm_home_t)
 allow xdm_t xdm_home_t:file { create write read getattr open append };
+
+# Allow LightDM to create ~/.dmrc if parent is (wrongly) var_t
+allow xdm_t var_t:dir { search read open getattr add_name write create };
