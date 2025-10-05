@@ -2,17 +2,23 @@ module my-lightdm-home 1.0;
 
 require {
     type xdm_t;
-    type user_home_dir_t;  # parent dir type
-    type xdm_home_t;       # type for .dmrc file
-    class dir  { search read open getattr add_name write create };
-    class file { create write read getattr open append };
+    type user_home_dir_t;
+    type user_home_t;
+    type tmpfs_t;
+    type var_t;  # Added this
+    class dir { create write add_name remove_name getattr read search open };
+    class file { create write read getattr open append map rename unlink };
+    class sock_file { write read create open getattr };
+    class fifo_file { write read create open getattr };
 }
 
-# LightDM can add a new entry in the user's home directory (create .dmrc)
-allow xdm_t user_home_dir_t:dir { search read open getattr add_name write create };
+# Greeter/session touching user home cache/temp during Wayland init
+allow xdm_t user_home_dir_t:dir { search read open getattr add_name remove_name write create };
+allow xdm_t user_home_t:file { create write read getattr open append };
 
-# And then work with the .dmrc file itself (which policy will type-transition to xdm_home_t)
-allow xdm_t xdm_home_t:file { create write read getattr open append };
+# Wayland/pipewire/pulse sockets in tmpfs paths
+allow xdm_t tmpfs_t:sock_file { create write read open getattr };
+allow xdm_t tmpfs_t:fifo_file { create write read open getattr };
 
 # Allow LightDM to create ~/.dmrc if parent is (wrongly) var_t
 allow xdm_t var_t:dir { search read open getattr add_name write create };
