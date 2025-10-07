@@ -3,17 +3,28 @@ set -euxo pipefail
 
 echo ">>> Configuring Flatpak remotes (command-based setup)"
 
-# Ensure Flatpak is installed (some uBlue images don’t ship it prebuilt)
-if ! command -v flatpak &>/dev/null; then
-    dnf5 install -y flatpak
+# ---------------------------------------------------------------------
+# Remove Fedora OCI remotes only if they exist
+# ---------------------------------------------------------------------
+if flatpak --system remotes | grep -q '^fedora'; then
+    echo "Removing Fedora Flatpak remote..."
+    flatpak --system remote-delete fedora || true
 fi
 
-# Initialize flatpak (ignore harmless errors inside container)
-flatpak --system remote-delete --force fedora || true
-flatpak --system remote-delete --force fedora-testing || true
+if flatpak --system remotes | grep -q '^fedora-testing'; then
+    echo "Removing Fedora-testing Flatpak remote..."
+    flatpak --system remote-delete fedora-testing || true
+fi
 
-# Add official Flathub repo
-flatpak --system remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+# ---------------------------------------------------------------------
+# Add Flathub remote if missing
+# ---------------------------------------------------------------------
+if ! flatpak --system remotes | grep -q '^flathub'; then
+    echo "Adding Flathub Flatpak remote..."
+    flatpak --system remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+else
+    echo "Flathub remote already exists — skipping."
+fi
 
 # Optionally install preselected Flatpak apps (example: Firedragon)
 # flatpak install -y flathub org.garudalinux.firedragon || true
